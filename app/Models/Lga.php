@@ -26,4 +26,13 @@ class Lga extends Model
         return $this->belongsTo(State::class);
     }
    
+    /**
+     * Return state relationship.
+     *
+     * @return 
+     */
+    public function wards() 
+    {
+        return $this->hasMany(Ward::class);
+    }
 }

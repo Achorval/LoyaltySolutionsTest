@@ -19,10 +19,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/reports', 'CitizenController@index')->name('home');
 
-Route::get('/reports', 'ReportController@index')->name('reports');
+Route::get('/citizen/create', 'CitizenController@citizen')->name('citizen');
 
-Route::post('/reports/create', [App\Http\Controllers\ReportController::class, 'createCitizen'])->name('createCitizen');
+Route::get('/citizen/state/{id}', 'CitizenController@fetchLgas')->name('fetchLgas');
 
-Route::get('/report/{id}', [App\Http\Controllers\ReportController::class, 'fetchState'])->name('fetchState');
+Route::get('/citizen/lga/{id}', 'CitizenController@fetchWards')->name('fetchWards');
+
+Route::post('/citizen/create', [App\Http\Controllers\CitizenController::class, 'createCitizen'])->name('createCitizen');
+
