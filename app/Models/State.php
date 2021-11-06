@@ -18,32 +18,20 @@ class State extends Model
 
 
     /**
-     * Return state relationship.
+     * Get the states associated with lgas.
      *
      * @return 
      */
     public function lgas() 
     {
-        return $this->hasMany(Lga::class);
-    }
-
-    public function getTotalCitizensAttribute()
-    {
-        // return $this->lgas->wards->citizens->count();
-        // dd($this->lgas->wards());
-        dd ($this->posts->count() );
-    }
-
-    public function citizens()
-    {
-        return $this->hasManyThrough(Citizen::class, Ward::class, Lga::class);
+        return $this->hasMany('App\Models\Lga');
     }
 
     /**
-     * Get all of the posts for the country.
+     * Get the states associated with wards through lgas.
      */
-    public function posts()
+    public function wards()
     {
-        return $this->hasManyThrough('App\Models\State', 'App\Models\Lga');
+        return $this->hasManyThrough('App\Models\Ward', 'App\Models\Lga');
     }
 }

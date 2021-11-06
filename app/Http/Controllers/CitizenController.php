@@ -23,33 +23,55 @@ class CitizenController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application State Report.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function statesReport()
     {
+        $states = State::withCount('wards')->get();
 
-        $states = State::all();
-
-        $citizenlist = Citizen::get();
-        $citizenCount = $citizenlist->count();
-
-        return view('home', [
-            'report' => $citizenCount,
+        return view('states', [
             'states' => $states
-        ]);
-        
+        ]);   
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application Lga Report.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function lgasReport()
+    {
+        $lgas = Lga::with('state')->get();
+
+        return view('lgas', [
+            'lgas' => $lgas
+        ]);   
+    }
+
+    /**
+     * Show the application Wards Report.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function wardsReport()
+    {
+        $wards = Citizen::with('ward')->get();
+
+        return view('wards', [
+            'wards' => $wards
+        ]);   
+    }
+
+
+    /**
+     * Show the Create Citizen form.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function citizen()
     {   
-
         $listState = State::get();
         return view('createCitizen', ['collection' => $listState]);
     }
@@ -117,42 +139,11 @@ class CitizenController extends Controller
         ]);
 
         if ($citizen) {
+
+            $request->session()->flash('success', 'Citizen record was created successful!');
+
             return redirect('citizen/create');
         }
-
-
-        // $validator = Validator::make($request->all(), [
-        //     'name'    => 'required',
-        //     'gender'  => 'required',
-        //     'address' => 'required',
-        //     'phone'   => 'required',
-        //     'ward_id' => 'required'
-        // ]);
-
-        // if($validator->fails()) {
-        //     return Response::json([
-        //         'status' => 'error',
-        //         'errors' =>$validator->errors()->toArray()
-        //     ]);
-        // }
-
-        // $citizen = Citizen::create([
-        //     'name'    => $request->input('name'),
-        //     'gender'  => $request->input('gender'),
-        //     'address' => $request->input('address'),
-        //     'phone'   => $request->input('phone'),
-        //     'ward_id' => $request->input('ward_id')
-        // ]);
-
-        // if ($citizen) {
-
-        //     return Response::json([
-        //         'status'  => 'success',
-        //         'message' => 'Citizen record have been created successfully!'
-        //     ]);
-
-        //     return view('createCitizen');
-        // }
     }
 }
 

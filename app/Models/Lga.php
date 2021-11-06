@@ -17,22 +17,23 @@ class Lga extends Model
     ];
 
     /**
-     * Return state relationship.
+     * Get the lga's state.
      *
      * @return 
      */
     public function state() 
     {
-        return $this->belongsTo(State::class);
+        return $this->belongsTo('App\Models\State');
     }
    
     /**
-     * Return state relationship.
+     * Get the lgas associated with wards.
      *
      * @return 
      */
     public function wards() 
     {
-        return $this->hasMany(Ward::class);
+        return $this->hasMany('App\Models\Ward');
     }
+
 }

@@ -61,6 +61,11 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li>
+                                        {{-- <a class="dropdown-item" href="{{ route('reports') }}">
+                                            {{ __('Reports') }}
+                                        </a> --}}
+                                    </li>
+                                    <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">

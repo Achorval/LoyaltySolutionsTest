@@ -2,8 +2,22 @@
 
 @section('content')
 <div class="container">
+    <div class="d-flex justify-content-between my-4">
+        <a href="/report/state" class="text-primary text-uppercase small text-right mb-3">
+            State Report
+        </a>
+        <a href="/report/lga" class="text-primary text-uppercase small text-right mb-3">
+            LGA Report
+        </a>
+        <a href="/report/ward" class="text-primary text-uppercase small text-right mb-3">
+            Ward Report
+        </a>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(Session::has('success'))
+                <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('success') !!}</em></div>
+            @endif
             <div class="card">
                 <div class="card-header">{{ __('Register Citizen') }}</div>
                 <div class="card-body">
@@ -138,44 +152,44 @@
     $(function () {
         $('#state_id').change(function() {
             let stateId = $(this).val();
-            $.ajax({ 
-                url: "/citizen/state/"+stateId,
-                type: "GET",
-                success: function (response) {
-                    if (response.data.length !== 0) {
+            if (stateId) {
+                $.ajax({ 
+                    url: "/citizen/state/"+stateId,
+                    type: "GET",
+                    success: function (response) {
                         var selectElem = $("#lga_id");
         
                         $.each(response.data, function(index, value){
-                            console.log(value.id);
                             $("<option/>", {
                                 value: value.id,
                                 text: value.name
                             }).appendTo(selectElem);
                         });
-                    } 
-                }
-		    });
+                    }
+                });
+            } 
         });
 
         $('#lga_id').change(function() { 
             let lgaId = $(this).val();
-            $.ajax({ 
-                url: "/citizen/lga/"+lgaId,
-                type: "GET",
-                success: function (response) {
-                    if (response.data.length !== 0) {
-                        var selectElem = $("#ward_id");
-        
-                        $.each(response.data, function(index, value){
-                            console.log(value.id);
-                            $("<option/>", {
-                                value: value.id,
-                                text: value.name
-                            }).appendTo(selectElem);
-                        });
-                    } 
-                }
-		    });
+            if (lgaId) {
+                $.ajax({ 
+                    url: "/citizen/lga/"+lgaId,
+                    type: "GET",
+                    success: function (response) {
+                        if (response.data.length !== 0) {
+                            var selectElem = $("#ward_id");
+            
+                            $.each(response.data, function(index, value){
+                                $("<option/>", {
+                                    value: value.id,
+                                    text: value.name
+                                }).appendTo(selectElem);
+                            });
+                        } 
+                    }
+                });
+            }
         });
     });
 </script>

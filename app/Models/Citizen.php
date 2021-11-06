@@ -17,12 +17,14 @@ class Citizen extends Model
     ];
 
     /**
-     * Return ward relationship.
+     * Get the citizen's ward.
      *
      * @return 
      */
     public function ward() 
     {
-        return $this->belongsTo(Ward::class);
+        return $this->belongsTo('App\Models\Ward');
     }
+
+    
 }

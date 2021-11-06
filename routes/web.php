@@ -19,7 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/reports', 'CitizenController@index')->name('home');
+Route::get('/home', 'CitizenController@statesReport');
+
+Route::get('/report/state', 'CitizenController@statesReport');
+
+Route::get('/report/lga', 'CitizenController@lgasReport');
+
+Route::get('/report/ward', 'CitizenController@wardsReport');
+
 
 Route::get('/citizen/create', 'CitizenController@citizen')->name('citizen');
 

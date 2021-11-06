@@ -17,22 +17,24 @@ class Ward extends Model
     ];
 
     /**
-     * Return lga relationship.
+     * Get the ward's lga.
      *
      * @return 
      */
     public function lga() 
     {
-        return $this->belongsTo(Lga::class);
+        return $this->belongsTo('App\Models\Lga');
     }
 
     /**
-     * Return citizen relationship.
+     * Get the wards associated with citizen.
      *
      * @return 
      */
     public function citizens() 
     {
-        return $this->hasMany(Citizen::class);
+        return $this->hasMany('App\Models\Citizen');
     }
+
+    
 }
